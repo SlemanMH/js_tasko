@@ -1,0 +1,35 @@
+@import './base.css';
+
+.category,
+.products .product {
+  background-color: #fff;
+  box-shadow: 0 3px 3px 3px rgba(0, 0, 0, 0.1);
+  width: 25%;
+  margin: 10px;
+  text-align: center;
+  padding: 20px;
+}
+
+.category a{
+  color:teal;
+}
+.products{
+    padding: 60px 0;
+}
+.products h2{
+    text-align: center;
+}
+
+.products_Details{
+  padding: 20px 0;
+}
+.products_Details .row{
+  justify-content: stretch;
+  gap: 15px;
+}
+.products_Details .product{
+  background-color: #fff;
+  box-shadow: 0 3px 3px 3px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  padding: 20px;
+}
