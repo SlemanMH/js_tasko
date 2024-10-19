@@ -17,6 +17,6 @@ const displayProducts = async () => {
        `
     }).join('');
 
-    document.querySelector(".products_Details .row").innerHTML = result;
+    document.querySelector(".products .row").innerHTML = result;
 }
 displayProducts();
