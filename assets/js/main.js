@@ -41,9 +41,9 @@ const displayProducts = async (page = 1) => {
         const result = data.products.map((product) => {
             return `
        <div class="product">
-        <img src="${product.thumbnail}" alt="${product.description}" />
-        <h3>${product.title}</h3>
-        <span>${product.price}$</span>
+        <img src="${product.thumbnail}" alt="${product.description}" class="images"/>
+        <h3 class="names">${product.title}</h3>
+        <span class="pricses">${product.price}$</span>
        </div>
        `
         }).join('');
@@ -70,6 +70,8 @@ const displayProducts = async (page = 1) => {
     } finally {
         loader.classList.remove("active");
     }
+
+    modal(); 
 }
 
 
@@ -104,3 +106,81 @@ setInterval(() => {
 
     countdown();
 }, 1000)
+
+
+function modal() {
+
+    const modal = document.querySelector(".my_modal");
+    const closeBtn = document.querySelector(".close-btn");
+    const leftBtn = document.querySelector(".left-btn");
+    const rightBtn = document.querySelector(".right-btn");
+    const images = Array.from(document.querySelectorAll(".images"));
+    const productName=Array.from(document.querySelectorAll(".names"));
+    const productPrice=Array.from( document.querySelectorAll(".pricses"));
+    
+    let currentIndex = 0;
+
+    images.forEach((img) => {
+        img.addEventListener("click", (e) => {
+            modal.classList.remove("d-none");
+            modal.querySelector("img").setAttribute("src", e.target.src);
+            currentIndex = images.indexOf(e.target);
+            modal.querySelector(".info h3").textContent=productName[currentIndex].textContent;
+            modal.querySelector(".info span").textContent=productPrice[currentIndex].textContent;
+        });
+    });
+
+
+
+    closeBtn.addEventListener("click", () => {
+        modal.classList.add("d-none");
+    });
+
+    leftBtn.addEventListener("click", () => {
+        currentIndex--;
+        if (currentIndex < 0) {
+            currentIndex = images.length - 1;
+        }
+        const src = images[currentIndex].src;
+        modal.querySelector("img").setAttribute("src", src);
+        modal.querySelector(".info h3").textContent=productName[currentIndex].textContent;
+        modal.querySelector(".info span").textContent=productPrice[currentIndex].textContent;
+    });
+
+    rightBtn.addEventListener("click", () => {
+        currentIndex++;
+        if (currentIndex >= images.length) {
+            currentIndex = 0;
+        }
+        const src = images[currentIndex].src;
+        modal.querySelector("img").setAttribute("src", src);
+        modal.querySelector(".info h3").textContent=productName[currentIndex].textContent;
+        modal.querySelector("info span").textContent=productPrice[currentIndex].textContent;
+    })
+
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+            modal.classList.add("d-none");
+        } else if (e.key === "ArrowLeft") {
+            currentIndex--;
+            if (currentIndex < 0) {
+                currentIndex = images.length - 1;
+            }
+            const src = images[currentIndex].src;
+            modal.querySelector("img").setAttribute("src", src);
+            modal.querySelector("info h3").textContent=productName[currentIndex].textContent;
+            modal.querySelector("info span").textContent=productPrice[currentIndex].textContent;
+        } else if (e.key === "ArrowRight") {
+            currentIndex++;
+            if (currentIndex >= images.length) {
+                currentIndex = 0;
+            }
+            const src = images[currentIndex].src;
+            modal.querySelector("img").setAttribute("src", src);
+            modal.querySelector("info h3").textContent=productName[currentIndex].textContent;
+            modal.querySelector("info span").textContent=productPrice[currentIndex].textContent;
+        }
+
+    });
+
+}
